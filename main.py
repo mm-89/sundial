@@ -2,7 +2,7 @@ import sundial
 import matplotlib.pyplot as plt
 import math as mt
 
-
+a = 1
 year = 2018
 day = 30
 lat = 30
