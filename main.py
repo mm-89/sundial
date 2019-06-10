@@ -8,7 +8,7 @@ day = 30
 lat = 30
 h = 1
 
-time = [i for i in range(9,16)]
+time = [i for i in range(9,16)] #in in hours
 
 var_x = []
 var_y = []

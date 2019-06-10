@@ -1,4 +1,4 @@
-import math as mt
+from math import *
 
 
 def declination(year, day):
@@ -6,7 +6,7 @@ def declination(year, day):
     Ref. Mark_Z._Jacobson, Fundamentals of Atmospheric_Modeling ---- NO OTHER
     """
 
-    conv_fact = mt.pi/180.
+    conv_fact = pi/180.
 
     # Julian day of the year
     D_J = day
@@ -30,11 +30,11 @@ def declination(year, day):
     eps_ob = 23.439 - 0.0000004 * N_JD
 	
     # ecliptic longitude of the Sun
-    lambda_ec = L_M + 1.915 * mt.sin(g_M * conv_fact) + \
-    0.020 * mt.sin(2 * g_M * conv_fact)
+    lambda_ec = L_M + 1.915 *sin(g_M * conv_fact) + \
+    0.020 *sin(2 * g_M * conv_fact)
 
     # solar declination angle
-    delta = mt.asin(mt.sin(eps_ob * conv_fact) * mt.sin(lambda_ec * conv_fact))
+    delta =asin(sin(eps_ob * conv_fact) *sin(lambda_ec * conv_fact))
 
     return delta
 
@@ -49,44 +49,67 @@ def get_xy_shade(year, day, lat, time_loc, h, alpha=0, beta=0, sigma=0, chi=0):
     """
 
     # change the time hour. The max is time_loc = 12
-    H_a = ( 2 * mt.pi * time_loc) / 24. - mt.pi
-    lat = lat * mt.pi / 180.
+    H_a = ( 2 *pi * time_loc) / 24. -pi
+    lat = lat *pi / 180.
 
-    alpha = alpha * mt.pi / 180.
-    beta = beta * mt.pi / 180.
+    alpha = alpha *pi / 180.
+    beta = beta *pi / 180.
 
-    sigma = sigma * mt.pi / 180.
-    chi = chi * mt.pi / 180.
+    sigma = sigma *pi / 180.
+    chi = chi *pi / 180.
 
     #compute S in components
-    Sx = - mt.cos(declination(year, day)) * mt.sin(H_a)
+    Sx = -cos(declination(year, day)) *sin(H_a)
 
-    Sy = mt.sin(declination(year, day)) * mt.cos(lat) - \
-    mt.cos(declination(year, day)) * mt.sin(lat) * mt.cos(H_a)
+    Sy =sin(declination(year, day)) *cos(lat) - \
+   cos(declination(year, day)) *sin(lat) *cos(H_a)
 
-    Sz = mt.cos(declination(year, day)) * mt.cos(lat) * mt.cos(H_a) + \
-    mt.sin(declination(year, day)) * mt.sin(lat)
+    Sz =cos(declination(year, day)) *cos(lat) *cos(H_a) + \
+   sin(declination(year, day)) *sin(lat)
 
     # normal shade
     x_shade = - h * Sx / Sz
     y_shade = - h * Sy / Sz
 
-    Sx_new = Sx * mt.cos(beta) - Sy * mt.sin(beta)
+    Sx_new = Sx *cos(beta) - Sy *sin(beta)
 
-    Sy_new = (Sx * mt.sin(beta) + Sy * mt.cos(beta)) * mt.cos(alpha) - Sz * mt.sin(alpha)
+    Sy_new = (Sx *sin(beta) + Sy *cos(beta)) *cos(alpha) - Sz *sin(alpha)
 
-    Sz_new = (Sx * mt.sin(beta) + Sy * mt.cos(beta)) * mt.sin(alpha) + Sz * mt.cos(alpha)
+    Sz_new = (Sx *sin(beta) + Sy *cos(beta)) *sin(alpha) + Sz *cos(alpha)
 
-    x_shade_new = - h * mt.cos(sigma) * Sx_new / Sz_new + h * mt.sin(sigma) * mt.cos(sigma)
-    y_shade_new = - h * mt.cos(sigma) * Sy_new / Sz_new + h * mt.sin(sigma) * mt.sin(sigma)
+    x_shade_new = - h *cos(sigma) * Sx_new / Sz_new + h *sin(sigma) *cos(sigma)
+    y_shade_new = - h *cos(sigma) * Sy_new / Sz_new + h *sin(sigma) *sin(sigma)
 
     # simply: only alpha
     Sx_pro = Sx
-    Sy_pro = Sy * mt.cos(alpha) - Sz * mt.sin(alpha)
-    Sz_pro = Sy * mt.sin(alpha) + Sz * mt.cos(alpha)
+    Sy_pro = Sy *cos(alpha) - Sz *sin(alpha)
+    Sz_pro = Sy *sin(alpha) + Sz *cos(alpha)
 
     x_shade_pro = - h * Sx_pro / Sz_pro
     y_shade_pro = - h * Sy_pro / Sz_pro
     
 
     return x_shade, y_shade, x_shade_new, y_shade_new
+
+def time_eq(year, day):
+    """
+    equation of time (to rewrite), from wikipedia (for now).
+    """
+    conv_fact = pi/180.
+
+    # Julian day of the year
+    D_J = day
+
+    # number of leap days since or before the year 2000
+    if(year>=2001):
+        D_L = (year - 2001)/4
+    else:
+        D_L = (year - 2001)/4 - 1
+
+    # number of days from the beginning of Julian year 2000
+    N_JD = 364.5 + 365 * (year - 2001) + D_L + D_J
+
+    # equation of time
+    eqtime = -9.87 * sin(2 * 360./365. * (N_JD - 81)) + \
+    7.67 * sin(360./365. *(N_JD -1))
+    return eqtime
