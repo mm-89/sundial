@@ -1,0 +1,106 @@
+from math import *
+
+
+def declination(year, day):
+    """
+    Ref. Mark_Z._Jacobson, Fundamentals of Atmospheric_Modeling ---- NO OTHER
+    """
+
+    conv_fact = pi/180.
+
+    # Julian day of the year
+    D_J = day
+
+    # number of leap days since or before the year 2000
+    if(year>=2001):
+        D_L = (year - 2001)/4
+    else:
+        D_L = (year - 2001)/4 - 1
+
+    # number of days from the beginning of Julian year 2000
+    N_JD = 364.5 + 365 * (year - 2001) + D_L + D_J
+	
+    # mean longitude of the Sun
+    L_M = 280.460 + 0.9856474 * N_JD
+	
+    # mean anomaly of the Sun
+    g_M = 357.528 + 0.9856003 * N_JD
+
+    # obliquity of the ecliptic
+    eps_ob = 23.439 - 0.0000004 * N_JD
+	
+    # ecliptic longitude of the Sun
+    lambda_ec = L_M + 1.915 *sin(g_M * conv_fact) + \
+    0.020 *sin(2 * g_M * conv_fact)
+
+    # solar declination angle
+    delta =asin(sin(eps_ob * conv_fact) *sin(lambda_ec * conv_fact))
+
+    return delta
+
+def get_xy_shade(year, day, lat, time_loc, h, alpha=0, beta=0, sigma=0, chi=0):
+    """
+    get shade of vertical gnomone
+
+    alpha: for now the zenith angle of the piano
+    beta: for now the angle respect the north of the piano
+    sigma: for now the angle of gnomone respect the normal of the piano
+    chi: the angle respect to the east of the piano
+    """
+
+    # change the time hour. The max is time_loc = 12
+    H_a = ( 2 *pi * time_loc) / 24. -pi
+    lat = lat *pi / 180.
+
+    alpha = alpha *pi / 180.
+    beta = beta *pi / 180.
+
+    sigma = sigma *pi / 180.
+    chi = chi *pi / 180.
+
+    #compute S in components
+    Sx = -cos(declination(year, day)) *sin(H_a)
+
+    Sy =sin(declination(year, day)) *cos(lat) - \
+   cos(declination(year, day)) *sin(lat) *cos(H_a)
+
+    Sz =cos(declination(year, day)) *cos(lat) *cos(H_a) + \
+   sin(declination(year, day)) *sin(lat)
+
+    # normal shade
+    x_shade = - h * Sx / Sz
+    y_shade = - h * Sy / Sz
+
+    Sx_new = Sx *cos(beta) - Sy *sin(beta)
+
+    Sy_new = (Sx *sin(beta) + Sy *cos(beta)) *cos(alpha) - Sz *sin(alpha)
+
+    Sz_new = (Sx *sin(beta) + Sy *cos(beta)) *sin(alpha) + Sz *cos(alpha)
+
+    x_shade_new = - h *cos(sigma) * Sx_new / Sz_new + h *sin(sigma) *cos(sigma)
+    y_shade_new = - h *cos(sigma) * Sy_new / Sz_new + h *sin(sigma) *sin(sigma)
+
+    # simply: only alpha
+    Sx_pro = Sx
+    Sy_pro = Sy *cos(alpha) - Sz *sin(alpha)
+    Sz_pro = Sy *sin(alpha) + Sz *cos(alpha)
+
+    x_shade_pro = - h * Sx_pro / Sz_pro
+    y_shade_pro = - h * Sy_pro / Sz_pro
+    
+
+    return x_shade, y_shade, x_shade_new, y_shade_new
+
+def time_eq(year, day):
+    """
+    equation of time (to rewrite), from wikipedia (for now).
+    """
+    conv_fact = pi/180.
+
+    # Julian day of the year
+    D_J = day
+
+    # equation of time (E in minute)
+    eqtime = -9.87 * sin(2 * 2 * pi/365. * (D_J - 81)) + \
+    7.67 * sin(2 * pi/365. *(D_J -1))
+    return eqtime
