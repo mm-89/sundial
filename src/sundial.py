@@ -100,7 +100,8 @@ def time_eq(year, day):
     # Julian day of the year
     D_J = day
 
-    # equation of time (E in minute)
+    # equation of time (E in minute) from wiki
     eqtime = -9.87 * sin(2 * 2 * pi/365. * (D_J - 81)) + \
     7.67 * sin(2 * pi/365. *(D_J -1))
+    
     return eqtime

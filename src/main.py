@@ -30,16 +30,16 @@ for el in days:
 	eqtime.append(sundial.time_eq(year,el))
 
 
-plt.plot(days, eqtime)
+#plt.plot(days, eqtime)
 
-#plt.subplot(121)
-#plt.plot(var_x, var_y)
-#plt.xlim(xmin=-2,xmax=2)
-#plt.ylim(ymin=0,ymax=2)
+plt.subplot(121)
+plt.plot(var_x, var_y)
+plt.xlim(xmin=-2,xmax=2)
+plt.ylim(ymin=0,ymax=2)
 
-#plt.subplot(122)
-#plt.plot(var_x_new, var_y_new)
-#plt.xlim(xmin=-2,xmax=2)
-#plt.ylim(ymin=0,ymax=2)
+plt.subplot(122)
+plt.plot(var_x_new, var_y_new)
+plt.xlim(xmin=-2,xmax=2)
+plt.ylim(ymin=0,ymax=2)
 
 plt.show()
