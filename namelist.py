@@ -1,7 +1,7 @@
 # this is namelist to compute sundial picture
 # write somethings here
 
-lat = '-03-44-59'
+lat = '-98-44-59'
 lon =  '13-49-59'
 #       DD MM SS
 

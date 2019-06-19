@@ -34,7 +34,7 @@ def declination(year, day):
     0.020 *sin(2 * g_M * conv_fact)
 
     # solar declination angle
-    delta =asin(sin(eps_ob * conv_fact) *sin(lambda_ec * conv_fact))
+    delta =asin(sin(eps_ob * conv_fact) * sin(lambda_ec * conv_fact))
 
     return delta
 
