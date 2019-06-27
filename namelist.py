@@ -1,7 +1,7 @@
 # this is namelist to compute sundial picture
 # write somethings here
 
-lat = '-98-44-59'
+lat = '-45-44-59'
 lon =  '13-49-59'
 #       DD MM SS
 
@@ -12,8 +12,13 @@ beta = '30'
 lamb = '15'
 gamma = '15'
 
+auto_gnome = True
+
 mon_to_plot = '0 0 1 0 0 1 0 0 1 0 0 1'
 #              G F M A M J J A S O N D
+
+day_to_plot = '21 21 21 21 21 21 21 21 21 21 21 21'
+#              G  F  M  A  J  J  A  A  S  O  N  D
 
 sundial_type = 'plain'
 

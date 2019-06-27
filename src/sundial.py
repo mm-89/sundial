@@ -38,7 +38,7 @@ def declination(year, day):
 
     return delta
 
-def get_xy_shade(year, day, lat, time_loc, h, alpha=0, beta=0, sigma=0, chi=0):
+def get_xy_shade(year, day, lat, time_loc, h, alpha, beta, lamb, gamma):
     """
     get shade of vertical gnomone
 
@@ -50,13 +50,6 @@ def get_xy_shade(year, day, lat, time_loc, h, alpha=0, beta=0, sigma=0, chi=0):
 
     # change the time hour. The max is time_loc = 12
     H_a = ( 2 *pi * time_loc) / 24. -pi
-    lat = lat *pi / 180.
-
-    alpha = alpha *pi / 180.
-    beta = beta *pi / 180.
-
-    sigma = sigma *pi / 180.
-    chi = chi *pi / 180.
 
     #compute S in components
     Sx = -cos(declination(year, day)) *sin(H_a)
