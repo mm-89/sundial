@@ -205,3 +205,13 @@ def transform_days(monlist):
         acc -= mon_vector[i+1]
         acc += day_for_month[i+1]
     return cum_mon
+
+def transform_UTC(utc):
+	"""
+	something
+	"""
+	if(utc[0] == '0'):
+		val = float(utc[1]) * 15.
+	else:
+		val = float(utc) * 15.
+	return val

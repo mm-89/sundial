@@ -1,45 +1,39 @@
 import sundial
+import read_param
 import matplotlib.pyplot as plt
-import math as mt
+from math import *
 
-a = 1
-year = 2018
-day = 30
-lat = 30
+
 h = 1
 
-time = [i for i in range(9,16)] #in in hours
 
-var_x = []
-var_y = []
+def plot_sundial(lon, lat, alpha, beta, lamb, gamma, mon, day, utc):
+	"""
+	somethings
+	"""
+	time = [i for i in range(6,18)] #in in hours
 
-var_x_new = []
-var_y_new = []
+	acc = 0
+	new_day = []
+	for i in range(len(mon)):
+		if( mon[i] == 1 ):
+			acc += 1
+			new_day.append(day[i])
+	print(new_day)
 
-eqtime = []
+	for i in range(acc):
+		var_to_plot_x = []
+		var_to_plot_y = []
+		for j in time:
+			var_x, var_y = sundial.get_xy_shade(2019, new_day[i], lat, j, h, alpha, beta, lamb, gamma)
+			if (var_x < 2*h and var_x > -2*h and var_y< 2*h and var_y > -2*h):
+				plt.text(var_x, var_y, '%s' % j)
+				var_to_plot_x.append(var_x)
+				var_to_plot_y.append(var_y)
+		print(var_to_plot_x, var_to_plot_y)
+		plt.plot(var_to_plot_x, var_to_plot_y)
+		plt.plot(var_to_plot_x, var_to_plot_y, '.')
+		plt.xlim(xmin=-2*h,xmax=2*h)
+		plt.ylim(ymin=-2*h,ymax=2*h)
 
-for el in time:
-	var_x.append(sundial.get_xy_shade(year, day, lat, el, h, 0, 0)[0])
-	var_y.append(sundial.get_xy_shade(year, day, lat, el, h, 0, 0)[1])
-	var_x_new.append(sundial.get_xy_shade(year, day, lat, el, h, -40, 10, 30, 10)[2])
-	var_y_new.append(sundial.get_xy_shade(year, day, lat, el, h, -40, 10, 30, 10)[3])
-
-days = [i for i in range(1,365)]
-
-for el in days:
-	eqtime.append(sundial.time_eq(year,el))
-
-
-#plt.plot(days, eqtime)
-
-plt.subplot(121)
-plt.plot(var_x, var_y)
-plt.xlim(xmin=-2,xmax=2)
-plt.ylim(ymin=0,ymax=2)
-
-plt.subplot(122)
-plt.plot(var_x_new, var_y_new)
-plt.xlim(xmin=-2,xmax=2)
-plt.ylim(ymin=0,ymax=2)
-
-plt.show()
+	return

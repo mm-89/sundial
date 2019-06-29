@@ -70,8 +70,8 @@ def get_xy_shade(year, day, lat, time_loc, h, alpha, beta, lamb, gamma):
 
     Sz_new = (Sx *sin(beta) + Sy *cos(beta)) *sin(alpha) + Sz *cos(alpha)
 
-    x_shade_new = - h *cos(sigma) * Sx_new / Sz_new + h *sin(sigma) *cos(sigma)
-    y_shade_new = - h *cos(sigma) * Sy_new / Sz_new + h *sin(sigma) *sin(sigma)
+    x_shade_new = - h *cos(lamb) * Sx_new / Sz_new + h *sin(lamb) *cos(lamb)
+    y_shade_new = - h *cos(lamb) * Sy_new / Sz_new + h *sin(lamb) *sin(lamb)
 
     # simply: only alpha
     Sx_pro = Sx
@@ -82,7 +82,7 @@ def get_xy_shade(year, day, lat, time_loc, h, alpha, beta, lamb, gamma):
     y_shade_pro = - h * Sy_pro / Sz_pro
     
 
-    return x_shade, y_shade, x_shade_new, y_shade_new
+    return x_shade_new, y_shade_new
 
 def time_eq(year, day):
     """

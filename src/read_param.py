@@ -192,11 +192,31 @@ def program_check():
             print('Program stopped')
             print('')
 
-        
+       	verify_param4 = False
+        if( verify_param3 ):
+            print('*******************************************')
+            print(' ')
+            print('Initializing to check UTC value')
+            print(' ')
+            print('*******************************************')
+            print(' ')
+            print('Select value for MONTHS is: %s' % UTC)
+            print(' ')
+            print('Verify UTC value .........')
+            print(' ')
+            print('...')
+            print(' ')
+            print('Test already have to be done...')
+            utc_to_read = cp.transform_UTC(UTC)
+            #if ( not var_monlist_dim ):
+            #    print('ATTENTION! MONTHS value is not the right dimension!')
+            #    verify_param2 = False
+	
 
     return lon_to_read, lat_to_read,\
             alpha_to_read, beta_to_read,\
             lamb_to_read, gamma_to_read, \
-            mon_to_read, day_to_read
+            mon_to_read, day_to_read, \
+            utc_to_read
 
 
