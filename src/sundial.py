@@ -38,6 +38,49 @@ def declination(year, day):
 
     return delta
 
+def get_s_component(year, day, lat, time_loc):
+    """
+    Only Sx, Sy, Sz components
+    """ 
+    # change the time hour. The max is time_loc = 12
+    H_a = ( 2 *pi * time_loc) / 24. -pi
+
+    #compute S in components
+    Sx = -cos(declination(year, day)) * sin(H_a)
+    Sy = sin(declination(year, day)) * cos(lat) - \
+           cos(declination(year, day)) * sin(lat) *cos(H_a)
+    Sz = cos(declination(year, day)) * cos(lat) * cos(H_a) + \
+            sin(declination(year, day)) * sin(lat)
+    
+    return Sx, Sy, Sz
+
+#-------------------------------------------------------
+
+def plain_shade(year, day, time_loc, h, alpha, beta):
+    
+    Sx = get_s_component(year, day, lat, time_loc)[0]
+    Sy = get_s_component(year, day, lat, time_loc)[1]
+    Sz = get_s_component(year, day, lat, time_loc)[2]
+
+    Sx_up = Sx * cos(beta) + (Sy * cos(alpha) + Sz * sin(alpha)) * sin(beta)
+    Sy_up = - Sx * sin(beta) + (Sy * cos(alpha) + Sz * sin(alpha)) * cos(beta)
+    Sz_up = - Sy * sin(alpha) + Sz * cos(alpha)
+
+    x = - h * Sx_up / Sz_up
+    y = - h * Sy_up / Sz_up
+
+    return x, y
+
+def plain_shade_TOTAL(year, day, time_loc, h, alpha, beta, lamb, gamma):
+
+    Sx_normal_palin_shade = plain_shade(year, day, time_loc, h, alpha, beta)[0]
+    Sy_normal_palin_shade = plain_shade(year, day, time_loc, h, alpha, beta)[1]
+
+    x_up = - h * sin(lamb) * sin(gamma) + Sx_normal_palin_shade * cos(lamb)
+    y_up = - h * sin(lamb) * cos(gamma) + Sy_normal_palin_shade * cos(lamb)
+
+    return x_up, y_up
+
 def get_xy_shade(year, day, lat, time_loc, h, alpha, beta, lamb, gamma):
     """
     get shade of vertical gnomone
