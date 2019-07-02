@@ -1,8 +1,8 @@
 # this is namelist to compute sundial picture
 # write somethings here
 
-lat = '+40-44-59'
-lon =  '13-49-59'
+lat = '+45-04-41'
+lon =  '06-42-43'
 #       DD MM SS
 
 UTC = '01'
@@ -10,9 +10,9 @@ UTC = '01'
 h = '1'
 auto_gnome = '1'	# 0: no, 1: yes
 
-alpha = '00'
-beta = '00'
-lamb = '00'
+alpha = '90'
+beta = '00' #positive towards East, negative towards West
+lamb = '60'
 gamma = '00'
 
 mon_to_plot = '0 0 1 0 0 1 0 0 1 0 0 1'

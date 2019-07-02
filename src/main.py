@@ -5,18 +5,20 @@ from math import *
 
 
 h = 1
-
+mon_to_sign = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic']
 
 def plot_sundial(lon, lat, alpha, beta, lamb, gamma, mon, day, utc):
 	"""
 	somethings
 	"""
-	time = [i for i in range(6,18)] #in in hours
+	time = [i for i in range(8,18)] #in in hours
 
 	acc = 0
 	new_day = []
+	day_mon = []
 	for i in range(len(mon)):
 		if( mon[i] == 1 ):
+			day_mon.append(i)
 			acc += 1
 			new_day.append(day[i])
 	print(new_day)
@@ -25,15 +27,18 @@ def plot_sundial(lon, lat, alpha, beta, lamb, gamma, mon, day, utc):
 		var_to_plot_x = []
 		var_to_plot_y = []
 		for j in time:
-			var_x, var_y = sundial.get_xy_shade(2019, new_day[i], lat, j, h, alpha, beta, lamb, gamma)
+			var_x, var_y = \
+	sundial.plain_shade_TOTAL(2019, new_day[i], j, lat, h, alpha, beta, lamb, gamma)
 			if (var_x < 2*h and var_x > -2*h and var_y< 2*h and var_y > -2*h):
 				plt.text(var_x, var_y, '%s' % j)
 				var_to_plot_x.append(var_x)
 				var_to_plot_y.append(var_y)
 		print(var_to_plot_x, var_to_plot_y)
-		plt.plot(var_to_plot_x, var_to_plot_y)
+		plt.plot(var_to_plot_x, var_to_plot_y, label='%s' % mon_to_sign[day_mon[i]])
 		plt.plot(var_to_plot_x, var_to_plot_y, '.')
+		plt.legend()
 		plt.xlim(xmin=-2*h,xmax=2*h)
 		plt.ylim(ymin=-2*h,ymax=2*h)
+		plt.axis('equal')
 
 	return

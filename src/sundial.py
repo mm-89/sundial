@@ -56,25 +56,25 @@ def get_s_component(year, day, lat, time_loc):
 
 #-------------------------------------------------------
 
-def plain_shade(year, day, time_loc, h, alpha, beta):
+def plain_shade(year, day, time_loc, lat, h, alpha, beta):
     
     Sx = get_s_component(year, day, lat, time_loc)[0]
     Sy = get_s_component(year, day, lat, time_loc)[1]
     Sz = get_s_component(year, day, lat, time_loc)[2]
 
-    Sx_up = Sx * cos(beta) + (Sy * cos(alpha) + Sz * sin(alpha)) * sin(beta)
-    Sy_up = - Sx * sin(beta) + (Sy * cos(alpha) + Sz * sin(alpha)) * cos(beta)
-    Sz_up = - Sy * sin(alpha) + Sz * cos(alpha)
+    Sx_up = Sx * cos(beta) - (-Sy * sin(alpha) + Sz * cos(alpha)) * sin(beta)
+    Sy_up = Sy * cos(alpha) +  Sz * sin(alpha)
+    Sz_up = Sx * sin(beta) + (-Sy * sin(alpha) + Sz * cos(alpha)) * cos(beta)
 
     x = - h * Sx_up / Sz_up
     y = - h * Sy_up / Sz_up
 
     return x, y
 
-def plain_shade_TOTAL(year, day, time_loc, h, alpha, beta, lamb, gamma):
+def plain_shade_TOTAL(year, day, time_loc, lat, h, alpha, beta, lamb, gamma):
 
-    Sx_normal_palin_shade = plain_shade(year, day, time_loc, h, alpha, beta)[0]
-    Sy_normal_palin_shade = plain_shade(year, day, time_loc, h, alpha, beta)[1]
+    Sx_normal_palin_shade = plain_shade(year, day, time_loc, lat, h, alpha, beta)[0]
+    Sy_normal_palin_shade = plain_shade(year, day, time_loc, lat, h, alpha, beta)[1]
 
     x_up = - h * sin(lamb) * sin(gamma) + Sx_normal_palin_shade * cos(lamb)
     y_up = - h * sin(lamb) * cos(gamma) + Sy_normal_palin_shade * cos(lamb)
