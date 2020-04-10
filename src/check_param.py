@@ -1,11 +1,146 @@
 import sys
-from math import *
+import math as mt
 
 sys.path.insert(0, '../')
 
-from namelist import *
+import namelist import nl
 
-# function definitions ---------------------------------------------
+#------------------------------------------------
+
+#current namelist parameters:
+# 1- lat
+# 2- lon
+# 3- h
+
+# 4- alpha
+# 5- beta
+# 6- lamb
+# 7- gamma
+
+# 8- mon_to_plot
+# 9- day_to_plot
+
+#-----------------------------------------------
+
+#two points to check:
+
+# 1- if the lengh is correct
+# 2- if the value is correct
+
+class CheckNamelist:
+
+    geo_lenght = 9
+
+    angles_lengh = 3
+
+    mon_list_lenght = 22
+    day_list_lenght = 34
+    
+
+    def __init__(self,
+                lat,
+                lon,
+                h,
+                alpha,
+                beta,
+                lamb,
+                gamma,
+                mon_to_plot,
+                day_to_plot
+                ):
+
+        self.lat = lat
+        self.lon = lon
+
+        self.h = h
+
+        self.alpha = alpha
+        self.beta = beta
+        self.lamb = lamb
+        self.gamma = gamma
+
+        self.mon_to_plot = mon_to_plot
+        self.day_to_plot = day_to_plot
+        
+        #to give at the end
+        self.verify_string = True
+        self.verify_lenght = True
+        self.verify_value = True
+
+
+    def general_check(self):
+
+        # first: check if every one is a string
+
+        #...
+
+        # second: check the leghts
+
+        #lat
+        if(len(self.lat) != geo_lenght): self.verify_lenght = False
+
+        #lon
+        if(len(self.lon) != geo_lenght): self.verify_lenght = False
+    
+        #angles
+        if(len(self.alpha) != angles_length): self.verify_lenght = False
+        if(len(self.beta) != angles_length): self.verify_lenght = False
+        if(len(self.lamb) != angles_length): self.verify_lenght = False
+        if(len(self.gamma) != angles_length): self.verify_lenght = False
+
+        #mon
+        if(len(self.mon_to_plot) != mon_list_lenght): self.verify_lenght = False
+
+        #day
+        if(len(self.day_to_plot) != day_list_lenght): self.verify_lenght = False
+        
+
+        # third: check the values
+
+        if(self.verify_lenght):
+
+            #lat
+            if(not self.lat[0] == '+' or not self.lat[0] == '-'):
+                self.verify_value = False
+            if(not self.lat[3] == '-' or not self.lat[6] == '-'):
+                self.verify_value = False
+
+            #lon
+            if(not self.lon[0] == '+' or not self.lon[0] == '-'):
+                self.verify_value = False
+            if(not self.lon[3] == '-' or not self.lon[6] == '-'):
+                self.verify_value = False
+            
+            #lat
+            try:
+                self.lat_new = float(self.lat[1:3]) + \
+                                float(self.lat[4:6])/60. + \
+                                float(self.lat[7:9])/3600.
+            except:
+                self.verify_value = False
+
+            #lon
+            try:
+                self.lon_new = float(long_val[0:2]) + \
+                                float(long_val[3:5])/60. + \
+                                float(long_val[6:8])/3600.
+            except:
+                self.verify_value = False
+
+            #angles
+            try:
+                self.alpha_new = float(self.alpha)*mt.pi/180.
+                self.beta_new = float(self.beta)*mt.pi/180.
+                self.lamb_new = float(self.lamb)*mt.pi/180.
+                self.gamma_new = float(self.gamma)*mt.pi/180.
+            except:
+                self.verify_value = False
+
+
+
+
+
+
 
 def trans_degree_decimal_lon(long_val):
     """
@@ -215,3 +350,4 @@ def transform_UTC(utc):
 	else:
 		val = float(utc) * 15.
 	return val
+
