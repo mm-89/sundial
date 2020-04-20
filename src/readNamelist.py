@@ -22,12 +22,9 @@ import namelist as nl
 
 #-----------------------------------------------
 
-#two points to check:
-
-# 1- if the lengh is correct
-# 2- if the value is correct (e.g. a string)
-
 class ReadNamelist:
+
+    days_in_a_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
     def __init__(self,
                 lat,
@@ -68,8 +65,25 @@ class ReadNamelist:
                     float(self.lon[-2:])/3600.
 
         #angles
-        alpha_new = mt.radians(float(alpha))
-        beta_new = mt.radians(float(beta))
-        lamb_new = mt.radians(float(lamb))
-        gamma_new = mt.radians(float(gamma))
+        alpha_new = mt.radians(float(self.alpha))
+        beta_new = mt.radians(float(self.beta))
+        lamb_new = mt.radians(float(self.lamb))
+        gamma_new = mt.radians(float(self.gamma))
+
+        #day_from_1st_january
+        #...
+
+
+if __name__ == "__main__":
+    current_read = ReadNamelist(nl.lat,
+                                nl.lon,
+                                nl.h,
+                                nl.alpha,
+                                nl.beta,
+                                nl.lamb,
+                                nl.gamma,
+                                nl.mon_to_plot,
+                                nl.day_to_plot
+                                )
+    current_read.general_read()
 
