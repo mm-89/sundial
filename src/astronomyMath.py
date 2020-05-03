@@ -1,4 +1,4 @@
-import math as mt
+from math import cos, sin, radians, pi
 
 
 def solar_declination_angle(year, day):
@@ -21,19 +21,30 @@ def solar_declination_angle(year, day):
     N_JD = 364.5 + 365 * (year - 2001) + D_L + day
 	
     # mean longitude of the Sun
-    L_M = mt.radians(280.460) + mt.radians(0.9856474) * N_JD
+    L_M = radians(280.460) + radians(0.9856474) * N_JD
 	
     # mean anomaly of the Sun
-    g_M = mt.radians(357.528) + mt.radians(0.9856003) * N_JD
+    g_M = radians(357.528) + radians(0.9856003) * N_JD
 
     # obliquity of the ecliptic
-    eps_ob = mt.radians(23.439) - mt.radians(0.0000004) * N_JD
+    eps_ob = radians(23.439) - radians(0.0000004) * N_JD
 	
     # ecliptic longitude of the Sun
-    lambda_ec = L_M + mt.radians(1.915)*mt.sin(g_M) + \
-    mt.radians(0.020)*mt.sin(g_M)
+    lambda_ec = L_M + radians(1.915)*sin(g_M) + \
+        radians(0.020)*sin(g_M)
 
     # solar declination angle
-    delta = mt.asin(mt.sin(eps_ob) * mt.sin(lambda_ec))
+    delta = asin(mt.sin(eps_ob) * sin(lambda_ec))
 
     return delta
+
+def equation_of_time(year, day):
+    """
+    equation of time, from wikipedia (for now).
+    """
+    # equation of time (E in minute)
+    eq_of_time = -9.87 * sin(2 * 2 * pi/365. * (day - 81)) + \
+    7.67 * sin(2 * pi/365. *(day -1))
+
+    return eq_of_time
+
