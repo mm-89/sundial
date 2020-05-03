@@ -1,4 +1,4 @@
-from math import cos, sin, radians, pi
+from math import cos, sin, radians, pi, asin
 
 
 def solar_declination_angle(year, day):
@@ -34,7 +34,7 @@ def solar_declination_angle(year, day):
         radians(0.020)*sin(g_M)
 
     # solar declination angle
-    delta = asin(mt.sin(eps_ob) * sin(lambda_ec))
+    delta = asin(sin(eps_ob) * sin(lambda_ec))
 
     return delta
 
