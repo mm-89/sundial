@@ -1,69 +1,6 @@
-import sys
+class CheckNamelist(object):
 
-sys.path.insert(0, '../')
-
-import namelist as nl
-
-#------------------------------------------------
-
-#current namelist parameters:
-# 1- lat
-# 2- lon
-# 3- h
-
-# 4- alpha
-# 5- beta
-# 6- lamb
-# 7- gamma
-
-# 8- mon_to_plot
-# 9- day_to_plot
-
-#-----------------------------------------------
-
-#two points to check:
-
-# 1- if the lengh is correct
-# 2- if the value is correct (e.g. a string)
-
-class CheckNamelist:
-
-    lat_lenght = [8, 9]
-    lon_lenght = [8, 9, 10]
-
-    angles_lenght = [2, 3]
-
-    mon_list_lenght = 23
-    day_list_lenght = 35
-    
-
-    def __init__(self,
-                lat,
-                lon,
-                h,
-                alpha,
-                beta,
-                lamb,
-                gamma,
-                mon_to_plot,
-                day_to_plot
-                ):
-
-        self.lat = lat
-        self.lon = lon
-
-        self.h = h
-
-        self.alpha = alpha
-        self.beta = beta
-        self.lamb = lamb
-        self.gamma = gamma
-
-        self.mon_to_plot = mon_to_plot
-        self.day_to_plot = day_to_plot
-        
-
-    def general_check(self):
+    def checkParams(self):
 
         #first: check is variables are string
 
@@ -155,18 +92,3 @@ class CheckNamelist:
         #day
         if not all([item.isdigit() for item in self.day_to_plot.split(' ')]):
             raise ValueError("DAY TO PLOT  is not correct setting")
-
-
-if __name__ == "__main__":
-    current_check = CheckNamelist(nl.lat,
-                                nl.lon,
-                                nl.h,
-                                nl.alpha,
-                                nl.beta,
-                                nl.lamb,
-                                nl.gamma,
-                                nl.mon_to_plot,
-                                nl.day_to_plot
-                                )
-    current_check.general_check()
-

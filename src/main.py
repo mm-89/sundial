@@ -1,3 +1,42 @@
+import sys
+sys.path.insert(0, '../')
+
+import namelist as nl
+import sundial as sd
+
+# Parameters object with all parameters
+# of the namelist
+
+sundial = sd.Sundial(nl.lat,
+						nl.lon,
+						nl.h,
+						nl.alpha,
+						nl.beta,
+						nl.lamb,
+						nl.gamma,
+						nl.mon_to_plot,
+						nl.day_to_plot
+						)
+sundial.checkParams()
+sundial.readParams()
+
+# just to visualize right now ----------
+
+print(" {} \n {} \n {} \n {} \n {} \n {} \n {} \n {} \n {}".format(sundial.lat,
+sundial.lon,
+sundial.h,
+sundial.alpha,
+sundial.beta,
+sundial.lamb,
+sundial.gamma,
+sundial.mon_to_plot,
+sundial.day_to_plot))
+
+#-------------------------------------
+						
+
+
+"""
 import sundial
 import read_param
 import matplotlib.pyplot as plt
@@ -5,12 +44,9 @@ from math import *
 
 
 h = 1
-mon_to_sign = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic']
 
 def plot_sundial(lon, lat, alpha, beta, lamb, gamma, mon, day, utc):
-	"""
-	somethings
-	"""
+
 	time = [i for i in range(8,18)] #in in hours
 
 	acc = 0
@@ -42,3 +78,5 @@ def plot_sundial(lon, lat, alpha, beta, lamb, gamma, mon, day, utc):
 		plt.axis('equal')
 
 	return
+
+"""
