@@ -47,7 +47,12 @@ class Parameters(object):
                 lamb,
                 gamma,
                 mon_to_plot,
-                day_to_plot
+                day_to_plot,
+                year,
+                start_hour,
+                end_hour,
+                max_dial_x,
+                max_dial_y
                 ):
 
         """
@@ -74,6 +79,10 @@ class Parameters(object):
 		mon_to_plot : specific string (see notes)
         
 		day_to_plot : specific string (see notes)
+
+        start_hour : int
+        
+        end_hour : int
 		"""
 
         self.lat = lat
@@ -88,3 +97,11 @@ class Parameters(object):
 
         self.mon_to_plot = mon_to_plot
         self.day_to_plot = day_to_plot
+
+        self.year = year # just to put something
+
+        self.start_hour = start_hour
+        self.end_hour = end_hour
+
+        self.max_dial_x = max_dial_x
+        self.max_dial_y = max_dial_y

@@ -1,7 +1,7 @@
 class CheckNamelist(object):
 
     def checkParams(self):
-
+       
         #first: check is variables are string
 
         #lat

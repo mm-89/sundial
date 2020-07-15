@@ -1,36 +1,47 @@
 import sys
 sys.path.insert(0, '../')
 
-import namelist as nl
-import sundial as sd
+from namelist import *
+
+from sundial import Sundial
 
 # Parameters object with all parameters
 # of the namelist
 
-sundial = sd.Sundial(nl.lat,
-						nl.lon,
-						nl.h,
-						nl.alpha,
-						nl.beta,
-						nl.lamb,
-						nl.gamma,
-						nl.mon_to_plot,
-						nl.day_to_plot
-						)
+sundial = Sundial(lat,
+				lon,
+				h,
+				alpha,
+				beta,
+				lamb,
+				gamma,
+				mon_to_plot,
+				day_to_plot,
+				year,
+				start_hour,
+				end_hour,
+				max_dial_x,
+				max_dial_y
+				)
+				
 sundial.checkParams()
 sundial.readParams()
 
+sundial.showSundial()
+
 # just to visualize right now ----------
 
-print(" {} \n {} \n {} \n {} \n {} \n {} \n {} \n {} \n {}".format(sundial.lat,
-sundial.lon,
-sundial.h,
-sundial.alpha,
-sundial.beta,
-sundial.lamb,
-sundial.gamma,
+"""
+print(" {} \n {} \n {} \n {} \n {} \n {} \n {} \n {} \n {}".format(sundial.lat_p,
+sundial.lon_p,
+sundial.h_p,
+sundial.alpha_p,
+sundial.beta_p,
+sundial.lamb_p,
+sundial.gamma_p,
 sundial.mon_to_plot,
 sundial.day_to_plot))
+"""
 
 #-------------------------------------
 						
