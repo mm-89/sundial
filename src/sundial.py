@@ -1,7 +1,6 @@
 from math import cos, sin, pi
 
 import matplotlib.pyplot as plt
-
 import numpy as np
 
 from astronomyMath import solar_declination_angle as sda
@@ -9,8 +8,6 @@ from mathematics import *
 
 from checkNamelist import CheckNamelist
 from readNamelist import ReadNamelist
-from parameters import Parameters
-
 
 
 class Sundial(CheckNamelist, ReadNamelist):
@@ -56,10 +53,13 @@ class Sundial(CheckNamelist, ReadNamelist):
 		------------
 		lat : float
 			latitude
+
         lon : float
 			longitude
+
         h : 
 			gnomon length
+
         alpha : 
 
         beta :
@@ -99,6 +99,7 @@ class Sundial(CheckNamelist, ReadNamelist):
         self.max_dial_y = max_dial_y
 
         self.sundial_type = sundial_type
+
 
 
     def sunRaysDirection(self, day, time_loc):

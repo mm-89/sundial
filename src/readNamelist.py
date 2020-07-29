@@ -1,24 +1,24 @@
-import math as mt
+from math import radians
 
 class ReadNamelist(object):
       
     def readParams(self):
         
         #lat
-        self.lat_p = mt.radians(float(self.lat[:-6]) + \
+        self.lat_p = radians(float(self.lat[:-6]) + \
                     float(self.lat[-5:-3])/60. + \
                     float(self.lat[-2:])/3600.)
         
         #lon
-        self.lon_p = mt.radians(float(self.lon[:-6]) + \
+        self.lon_p = radians(float(self.lon[:-6]) + \
                     float(self.lon[-5:-3])/60. + \
                     float(self.lon[-2:])/3600.)
 
         #angles
-        self.alpha_p = mt.radians(float(self.alpha))
-        self.beta_p = mt.radians(float(self.beta))
-        self.lamb_p = mt.radians(float(self.lamb))
-        self.gamma_p = mt.radians(float(self.gamma))
+        self.alpha_p = radians(float(self.alpha))
+        self.beta_p = radians(float(self.beta))
+        self.lamb_p = radians(float(self.lamb))
+        self.gamma_p = radians(float(self.gamma))
 
         self.h_p = float(self.h)
 
