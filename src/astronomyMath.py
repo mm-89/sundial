@@ -48,3 +48,18 @@ def equation_of_time(year, day):
 
     return eq_of_time
 
+def sun_ray_direction(year, lat, day, time_loc):
+    """
+    Ref: Sproul 2006
+    """
+
+    #compute S in components
+    sx = -cos(solar_declination_angle(year, day)) * sin(time_loc)
+
+    sy = sin(solar_declination_angle(year, day)) * cos(lat) - \
+            cos(solar_declination_angle(year, day)) * sin(lat) *cos(time_loc)
+
+    sz = cos(solar_declination_angle(year, day)) * cos(lat) * cos(time_loc) + \
+            sin(solar_declination_angle(year, day)) * sin(lat)
+        
+    return sx, sy, sz

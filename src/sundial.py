@@ -3,7 +3,7 @@ from math import cos, sin, pi
 import matplotlib.pyplot as plt
 import numpy as np
 
-from astronomyMath import solar_declination_angle as sda
+from astronomyMath import sun_ray_direction as srd
 from mathematics import *
 
 from checkNamelist import CheckNamelist
@@ -101,35 +101,13 @@ class Sundial(CheckNamelist, ReadNamelist):
         self.sundial_type = sundial_type
 
 
-
-    def sunRaysDirection(self, day, time_loc):
-        #check "lat" variable, probably to delete it
-        """
-        Ref: Sproul 2006
-        """
-        
-        # change time from hour to radiant
-        H_a = pi * (time_loc/12. - 1)
-
-        #compute S in components
-        sx = -cos(sda(self.year, day)) * sin(H_a)
-
-        sy = sin(sda(self.year, day)) * cos(self.lat_p) - \
-               cos(sda(self.year, day)) * sin(self.lat_p) *cos(H_a)
-
-        sz = cos(sda(self.year, day)) * cos(self.lat_p) * cos(H_a) + \
-               sin(sda(self.year, day)) * sin(self.lat_p)
-        
-        return sx, sy, sz
-
-
     def horizontalPlane(self, day, time_loc):
         #check "h" variable, probably to delete it
 
          # change time from hour to radiant
+
         H_a = pi * (time_loc/12. - 1)
 
-        thisRay = self.sunRaysDirection
         """
         x = self.h_p * sin(self.gamma_p) * cos(self.lamb_p) - \
             (thisRay(day, time_loc)[0] - self.h_p * sin(self.gamma_p) * cos(self.lamb_p)) * \
@@ -140,8 +118,10 @@ class Sundial(CheckNamelist, ReadNamelist):
             self.h_p * cos(self.gamma_p) / thisRay(day, time_loc)[2]
         """
 
-        x = self.h_p * thisRay(day, time_loc)[0] / thisRay(day, time_loc)[2]
-        y = self.h_p * thisRay(day, time_loc)[1] / thisRay(day, time_loc)[2]
+        x = self.h_p * srd(self.year, self.lat_p, day, H_a)[0] / \
+                        srd(self.year, self.lat_p, day, H_a)[2]
+        y = self.h_p * srd(self.year, self.lat_p, day, H_a)[1] / \
+                        srd(self.year, self.lat_p, day, H_a)[2]
 
         return x, y
 
