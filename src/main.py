@@ -21,7 +21,8 @@ sundial = Sundial(lat,
 				start_hour,
 				end_hour,
 				max_dial_x,
-				max_dial_y
+				max_dial_y,
+				sundial_type
 				)
 				
 sundial.checkParams()

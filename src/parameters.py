@@ -38,6 +38,8 @@ class Parameters(object):
 
     mon_to_sign = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
 
+    total_sundial_type = ['italic', 'babilo', 'french']
+
     def __init__(self,
                 lat,
                 lon,
@@ -52,7 +54,8 @@ class Parameters(object):
                 start_hour,
                 end_hour,
                 max_dial_x,
-                max_dial_y
+                max_dial_y,
+                sundial_type
                 ):
 
         """
@@ -105,3 +108,5 @@ class Parameters(object):
 
         self.max_dial_x = max_dial_x
         self.max_dial_y = max_dial_y
+
+        self.sundial_type = sundial_type

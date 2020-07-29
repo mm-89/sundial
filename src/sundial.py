@@ -79,7 +79,7 @@ class Sundial(Parameters, CheckNamelist, ReadNamelist):
                     x_dial.append( tmp_x )
                     y_dial.append( tmp_y )
 
-            plt.plot(x_dial, y_dial, label=self.mon_show[i])
+            plt.scatter(x_dial, y_dial, label=self.mon_show[i])
         
         plt.legend()
         plt.axis("equal")

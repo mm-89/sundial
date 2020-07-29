@@ -91,4 +91,7 @@ class CheckNamelist(object):
 
         #day
         if not all([item.isdigit() for item in self.day_to_plot.split(' ')]):
-            raise ValueError("DAY TO PLOT  is not correct setting")
+            raise ValueError("DAY TO PLOT is not correct setting")
+
+        if not self.sundial_type in self.total_sundial_type:
+            raise ValueError("Sundial type not recognize")
