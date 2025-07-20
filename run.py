@@ -2,7 +2,7 @@ import sys
 
 sys.path.insert(0, './src/')
 
-import read_param as rp
+import readNamelist as rp
 import main as mn
 import matplotlib.pyplot as plt
 
